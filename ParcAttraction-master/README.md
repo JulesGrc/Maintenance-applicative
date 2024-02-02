@@ -1,4 +1,4 @@
-Projet maintenance applicative
+Projet maintenance applicative Jules GOUEREC
 
 Vous avez un projet de parc d'attraction, pour l'instant, on peut uniquement ajouter des attractions (connexion administrateur) et les visualiser (visiteur).
 Il vous faut reprendre le projet et le continuer.
