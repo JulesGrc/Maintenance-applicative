@@ -28,6 +28,11 @@ def get_all_attraction():
     json = req.select_from_db("SELECT * FROM attraction")
     
     return json
+  
+def get_all_visible_attraction():
+    json = req.select_from_db("SELECT * FROM attraction WHERE visible = true")
+    
+    return json
 
 def get_attraction(id):
     if (not id):
@@ -47,3 +52,17 @@ def delete_attraction(id):
     req.delete_from_db("DELETE FROM attraction WHERE attraction_id = ?", (id,))
 
     return True
+
+def add_critique(message, note, attraction_id):
+    if (not note or not attraction_id):
+        return False
+    print("message", message, "note", note, "attraction_id", attraction_id, flush=True)
+    requete = "INSERT INTO critique (message, note, attraction_id) VALUES (?, ?, ?);"
+    req.insert_in_db(requete, (message["message"], note["note"], attraction_id["attraction_id"]))
+
+    return True
+
+def get_critique(attraction_id):
+    json = req.select_from_db("SELECT * FROM critique WHERE attraction_id = ?", (attraction_id,))
+    
+    return json

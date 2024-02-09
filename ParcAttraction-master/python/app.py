@@ -31,6 +31,11 @@ def addAttraction():
 def getAllAttraction():
     result = attraction.get_all_attraction()
     return result, 200
+  
+@app.get('/attraction/visible')
+def getAllVisibleAttraction():
+    result = attraction.get_all_visible_attraction()
+    return result, 200
 
 @app.get('/attraction/<int:index>')
 def getAttraction(index):
@@ -66,4 +71,17 @@ def login():
     conn.close()
 
     result = jsonify({"token": user.encode_auth_token(list(records[0])[0]), "name": json['name']})
+    return result, 200
+
+@app.post('/critique')
+def addCritique():
+    json = request.get_json()
+    retour = attraction.add_critique(json)
+    if (retour):
+        return jsonify({"message": "Element ajouté.", "result": retour}), 200
+    return jsonify({"message": "Erreur lors de l'ajout.", "result": retour}), 500
+
+@app.get('/critique/<int:index>')
+def getCritique(index):
+    result = attraction.get_critique(index)
     return result, 200

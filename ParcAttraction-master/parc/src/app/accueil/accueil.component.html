@@ -3,11 +3,31 @@
     <mat-card-title>Bienvenue sur le site internet du parc d'attraction</mat-card-title>
   </mat-card-header>
   <mat-card-content>
+    <div class="critique">
+      <span>Ajouter une critique : </span>
+      <span>
+        <input type="text" id="message" [(ngModel)]="message">
+        <label for="note"> Note </label>
+         <select name="note" id="note" [(ngModel)]="selectedNote">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+         </select>
+         <label for="attraction">Attractions</label>
+         <select name="attraction" id="attraction" [(ngModel)]="selectedAttraction">
+           <option *ngFor="let attraction of attractions | async">{{attraction.nom}}</option>
+         </select>
+        <button (click)="addCritique(message, selectedNote, selectedAttraction)">Envoyer</button>
+      </span>
+    </div>
     <div class="attraction-title">
       <div class="attraction">
         <span>Nom de l'attraction</span>
         <span>Description de l'attraction</span>
         <span>Difficulté de l'attraction / 5</span>
+        <span>Critique</span>
       </div>
     </div>
     <ng-container *ngFor="let attraction of attractions | async;">
@@ -15,6 +35,7 @@
         <span>{{attraction.nom}}</span>
         <span>{{attraction.description}}</span>
         <span>{{attraction.difficulte}} / 5</span>
+        <span></span>
       </div>
     </ng-container>
   </mat-card-content>

@@ -31,3 +31,5 @@ Mise en place du projet :
   - docker exec -it cours-api-1 sh
   - Lancer les scripts python dans l'ordre : init.py puis create.py
 - Le projet est lancé
+
+- Ajout de la route /attraction/visible pour ne voir que les attractions sélectionnées par l'admin depuis l'accueil en tant que user
