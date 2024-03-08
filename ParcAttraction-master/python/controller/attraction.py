@@ -53,12 +53,24 @@ def delete_attraction(id):
 
     return True
 
-def add_critique(message, note, attraction_id):
-    if (not note or not attraction_id):
+def add_critique(data):
+    if (not "nom" in data or data["nom"] == ""):
         return False
-    print("message", message, "note", note, "attraction_id", attraction_id, flush=True)
-    requete = "INSERT INTO critique (message, note, attraction_id) VALUES (?, ?, ?);"
-    req.insert_in_db(requete, (message["message"], note["note"], attraction_id["attraction_id"]))
+    
+    if (not "prenom" in data or data["prenom"] == ""):
+        return False
+    
+    if (not "message" in data or data["message"] == ""):
+        return False
+    
+    if(not "note" in data or data["note"] is None):
+        return False
+    
+    if(not "attraction_id" in data or data["attraction_id"] is None):
+        return False
+    
+    requete = "INSERT INTO critique (nom, prenom, message, note, attraction_id) VALUES (?, ?, ?, ?, ?);"
+    req.insert_in_db(requete, (data["nom"], data["prenom"], data["message"], data["note"], data["attraction_id"]))
 
     return True
 

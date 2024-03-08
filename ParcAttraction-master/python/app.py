@@ -6,7 +6,7 @@ import controller.auth.auth as user
 import controller.attraction as attraction
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/*": {"origins": "http://localhost:4200"}})
 
 @app.route('/')
 def hello_world():
@@ -81,7 +81,7 @@ def addCritique():
         return jsonify({"message": "Element ajouté.", "result": retour}), 200
     return jsonify({"message": "Erreur lors de l'ajout.", "result": retour}), 500
 
-@app.get('/critique/<int:index>')
+@app.get('/attraction/<int:index>/critique')
 def getCritique(index):
     result = attraction.get_critique(index)
     return result, 200

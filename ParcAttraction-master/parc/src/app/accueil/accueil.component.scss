@@ -17,3 +17,104 @@
     width: 250px;
   }
 }
+
+/* Style général du formulaire */
+form {
+  margin: 0 auto;
+  max-width: 600px;
+}
+
+/* Style des éléments de formulaire */
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+input[type="text"],
+select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type="checkbox"] {
+  margin-right: 5px;
+}
+
+button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+/* Style de la zone d'attraction */
+.attraction-title {
+  font-size: 18px;
+  font-weight: 500;
+  background-color: darkgrey;
+  width: fit-content;
+  margin-top: 25px;
+}
+
+.attraction {
+  display: flex;
+  align-items: center;
+  column-gap: 25px;
+  width: fit-content;
+  border-bottom: solid 1px grey;
+}
+
+.attraction span {
+  padding: 5px;
+  width: 250px;
+  display: block;
+}
+
+/* Style pour les critiques */
+.critique-list li {
+  list-style-type: none;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+}
+
+.critique-list li b {
+  color: blue;
+}
+
+/* Style pour le panneau déroulant "Ajouter une critique" */
+details {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+summary {
+  cursor: pointer;
+  font-weight: bold;
+}
+
+mat-card-title {
+  font-size: 20px;
+  font-weight: 500;
+  background-color: darkgrey;
+  width: fit-content;
+  margin-top: 25px;
+  margin: 0 auto;
+}

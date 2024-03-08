@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AttractionService } from '../Service/attraction.service';
 import { CommonModule } from '@angular/common';
-import { Observable } from 'rxjs';
+import { Observable, forkJoin, map, switchMap } from 'rxjs';
 import { AttractionInterface } from '../Interface/attraction.interface';
 import { MatCardModule } from '@angular/material/card';
 import { CritiqueInterface } from '../Interface/critique.interface';
@@ -12,28 +12,51 @@ import { FormsModule } from '@angular/forms';
   standalone: true,
   imports: [CommonModule, MatCardModule, FormsModule],
   templateUrl: './accueil.component.html',
-  styleUrl: './accueil.component.scss'
+  styleUrls: ['./accueil.component.scss'] // Use styleUrls instead of styleUrl
 })
 export class AccueilComponent {
 
-  constructor(public attractionService: AttractionService)
-  {}
+  constructor(public attractionService: AttractionService) {
+    this.attractionsWithCritiques = this.attractionService.getAllAttractionVisible().pipe(
+      switchMap(attractions =>
+        forkJoin(attractions.map(attraction =>
+          this.attractionService.getCritique(attraction.attraction_id || 0).pipe(
+            map(critiques => ({ attraction, critiques }))
+          )
+        ))
+      )
+    );
+  }
   
-  public attractions: Observable<AttractionInterface[]> = this.attractionService.getAllAttractionVisible();
-
   public message: string = '';
   public selectedNote: number = 0;
-  public selectedAttraction: number = 0;
+  public selectedAttractionId: number = 0;
+  public anonyme = false;
+  public prenom: string = '';
+  public nom: string = '';
 
-  addCritique(message: string, selectedNote: number, selectedAttraction: number) {
-    const critique: CritiqueInterface = {
-      critique_id: null,
-      message: message,
-      note: selectedNote,
-      attraction_id: selectedAttraction
+  onAnonymeChange() {
+    if (this.anonyme) {
+      this.prenom = 'Anonyme';
+      this.nom = ' ';
+    } else {
+      this.prenom = '';
+      this.nom = '';
     }
-    this.attractionService.addCritique(critique).subscribe()
   }
 
-  public critiques: Observable<CritiqueInterface[]> = this.attractionService.getCritique(this.selectedAttraction);
+  addCritique() {
+    const critique: CritiqueInterface = {
+      critique_id: null,
+      nom: this.nom,
+      prenom: this.prenom,
+      message: this.message,
+      note: this.selectedNote,
+      attraction_id: this.selectedAttractionId
+    }
+    this.attractionService.addCritique(critique).subscribe();
+  }
+
+  public attractionsWithCritiques: Observable<{ attraction: AttractionInterface, critiques: CritiqueInterface[] }[]>;
+
 }
