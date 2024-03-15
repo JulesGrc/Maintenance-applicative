@@ -1,50 +1,50 @@
 <mat-card>
   <mat-card-header>
-    <mat-card-title>Bienvenue sur le site internet du parc d'attraction</mat-card-title>
+    <mat-card-title i18n>Bienvenue sur le site internet du parc d'attraction</mat-card-title>
   </mat-card-header>
   <mat-card-content>
     <details>
-      <summary>Ajouter une critique</summary>
+      <summary i18n>Ajouter une critique</summary>
     <form #critiqueForm="ngForm" (ngSubmit)="addCritique()">
       <div class="critique">
-        <label for="anonyme">Rester anonyme</label>
+        <label for="anonyme" i18n>Rester anonyme</label>
         <input type="checkbox" id="anonyme" name="anonyme" [(ngModel)]="anonyme" (change)="onAnonymeChange()">
       </div>
       <div *ngIf="!anonyme">
         <div class="form-group">
-          <label for="prenom">Prénom</label>
+          <label for="prenom" i18n>Prénom</label>
           <input type="text" id="prenom" name="prenom" [(ngModel)]="prenom" required>
         </div>
         <div class="form-group">
-          <label for="nom">Nom</label>
+          <label for="nom" i18n>Nom</label>
           <input type="text" id="nom" name="nom" [(ngModel)]="nom" required>
         </div>
       </div>
       <div class="form-group">
-        <label for="message">Commentaire</label>
+        <label for="message" i18n>Commentaire</label>
         <input type="text" id="message" name="message" [(ngModel)]="message" required>
       </div>
       <div class="form-group">
-        <label for="note">Note</label>
+        <label for="note" i18n>Note</label>
         <select name="note" id="note" [(ngModel)]="selectedNote" required>
           <option *ngFor="let note of [1, 2, 3, 4, 5]" [value]="note">{{ note }}</option>
         </select>
       </div>
       <div class="form-group">
-        <label for="attraction">Attraction</label>
+        <label for="attraction" i18n>Attraction</label>
         <select name="attraction" id="attraction" [(ngModel)]="selectedAttractionId" required>
           <option *ngFor="let item of attractionsWithCritiques | async" [value]="item.attraction.attraction_id">{{item.attraction.nom}}</option>
         </select>
       </div>
-      <button type="submit" [disabled]="critiqueForm.invalid">Envoyer</button>
+      <button type="submit" [disabled]="critiqueForm.invalid" i18n>Envoyer</button>
     </form>
     </details>
     <div class="attraction-title">
       <div class="attraction">
-        <span>Nom de l'attraction</span>
-        <span>Description de l'attraction</span>
-        <span>Difficulté de l'attraction / 5</span>
-        <span>Critique</span>
+        <span i18n>Nom de l'attraction</span>
+        <span i18n>Description de l'attraction</span>
+        <span i18n>Difficulté de l'attraction / 5</span>
+        <span i18n>Critique</span>
       </div>
     </div>
     <ng-container *ngFor="let item of attractionsWithCritiques | async;">
@@ -54,7 +54,7 @@
         <span>{{item.attraction.difficulte}} / 5</span>
         <span>
           <details>
-            <summary>Afficher les critiques</summary>
+            <summary i18n>Afficher les critiques</summary>
             <ul class="critique-list">
               <li *ngFor="let critique of item.critiques">
                 <b>

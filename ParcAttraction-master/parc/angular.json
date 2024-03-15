@@ -11,6 +11,12 @@
         }
       },
       "root": "",
+      "i18n": {
+        "sourceLocale": "fr",
+        "locales": {
+          "en": "src/app/i18n/messages.en.xlf"
+        }
+      },
       "sourceRoot": "src",
       "prefix": "app",
       "architect": {
@@ -36,6 +42,9 @@
             "scripts": []
           },
           "configurations": {
+            "en" : {
+              "localize": ["en"]
+            },
             "production": {
               "budgets": [
                 {
@@ -67,6 +76,9 @@
             },
             "development": {
               "buildTarget": "parc:build:development"
+            },
+            "en": {
+              "buildTarget": "parc:build:en"
             }
           },
           "defaultConfiguration": "development"
